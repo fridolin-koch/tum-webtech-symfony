@@ -1,8 +1,10 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\ActivityType;
 use AppBundle\Entity\TaskPriority;
 use AppBundle\Entity\TaskState;
+use AppBundle\Entity\TaskType;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -64,7 +66,7 @@ class LoadDefaultData implements FixtureInterface
         ];
         //create all types
         foreach ($types as $type) {
-            $obj = new TaskState();
+            $obj = new TaskType();
             $obj
                 ->setName($type[0])
                 ->setColor($type[1]);
@@ -80,7 +82,7 @@ class LoadDefaultData implements FixtureInterface
         ];
         //create all activity types
         foreach ($activityTypes as $type) {
-            $obj = new TaskState();
+            $obj = new ActivityType();
             $obj->setName($type);
 
             $manager->persist($obj);
