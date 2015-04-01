@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Fridolin Koch <info@fridokoch.de>
  *
  * @ORM\Entity
- * @ORM\Table(name="task_type")
+ * @ORM\Table(name="task_types")
  */
 class TaskType
 {

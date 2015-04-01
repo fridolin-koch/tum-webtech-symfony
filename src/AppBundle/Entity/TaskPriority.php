@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Fridolin Koch <info@fridokoch.de>
  *
  * @ORM\Entity
- * @ORM\Table(name="task_priority")
+ * @ORM\Table(name="task_priorities")
  */
 class TaskPriority
 {

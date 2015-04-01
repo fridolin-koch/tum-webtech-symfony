@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Fridolin Koch <info@fridokoch.de>
  *
  * @ORM\Entity
- * @ORM\Table(name="task_state")
+ * @ORM\Table(name="task_states")
  */
 class TaskState
 {

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +43,14 @@ class Project
      * @ORM\Column(type="string")
      */
     private $customer;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="project")
+     * @ORM\OrderBy("modifiedDate" = "ASC")
+     */
+    private $tasks;
 
     /**
      * @return int
@@ -107,6 +116,38 @@ class Project
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * @param Task $task
+     * @return $this
+     */
+    public function addTask(Task $task)
+    {
+        $task->setProject($this);
+        $this->tasks->add($task);
+
+        return $this;
+    }
+
+    /**
+     * @param Task $task
+     *
+     * @return $this
+     */
+    public function removeTask(Task $task)
+    {
+        $this->tasks->removeElement($task);
 
         return $this;
     }

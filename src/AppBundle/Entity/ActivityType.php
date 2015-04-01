@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Fridolin Koch <info@fridokoch.de>
  *
  * @ORM\Entity
- * @ORM\Table(name="activity_type")
+ * @ORM\Table(name="activity_types")
  */
 class ActivityType
 {
