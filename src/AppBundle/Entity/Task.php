@@ -101,14 +101,14 @@ class Task
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="task", orphanRemoval=true)
      */
     private $activities;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="task", orphanRemoval=true)
      * @ORM\OrderBy({"date" = "ASC"})
      */
     private $comments;
