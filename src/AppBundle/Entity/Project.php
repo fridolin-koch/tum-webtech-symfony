@@ -3,6 +3,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Project
@@ -11,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table("projects")
+ * @UniqueEntity("name")
+ * @UniqueEntity("identifier")
  */
 class Project
 {
@@ -27,6 +31,7 @@ class Project
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -34,6 +39,18 @@ class Project
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *  pattern="/^[a-z0-9-_]+$/",
+     *  message="The project identifier may only contain alphanumeric characters, dashes and underscores"
+     * )
+     */
+    private $identifier;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
      */
     private $description;
 
@@ -148,6 +165,26 @@ class Project
     public function removeTask(Task $task)
     {
         $this->tasks->removeElement($task);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return Project
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
