@@ -51,7 +51,7 @@ class Task
     /**
      * @var Project
      *
-     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     private $project;
@@ -109,7 +109,7 @@ class Task
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="task")
-     * @ORM\OrderBy("date" = "ASC")
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     private $comments;
 
