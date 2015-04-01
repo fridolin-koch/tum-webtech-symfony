@@ -1,0 +1,14 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block main -%}
+    <h1>Projects</h1>
+
+
+    {% for entity in entities %}
+        <h2><a href="{{ path('project_show', { 'identifier': entity.identifier }) }}">{{ entity.name }}</a></h2>
+        {{  entity.description }}
+        {{ entity.customer }}
+        <hr>
+    {% endfor %}
+
+{% endblock %}
