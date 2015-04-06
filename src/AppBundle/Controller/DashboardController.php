@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        $manager = $this->getDoctrine()->getEntityManager();
+        $manager = $this->getDoctrine()->getManager();
         //get all tasks order by dueDate, priority
         $tasks = $manager->getRepository('AppBundle:Task')->findBy([], [
             'dueDate' => 'DESC',
