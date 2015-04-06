@@ -111,7 +111,6 @@ class Task
      */
     public function __construct()
     {
-        $this->activities = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
