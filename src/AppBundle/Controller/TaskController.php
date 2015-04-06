@@ -61,11 +61,6 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //convert estimated time to integer
-            if ($task->getTimeEstimated() !== null) {
-                $time = explode('h', $task->getTimeEstimated());
-                $task->setTimeEstimated((intval($time[0])*60+intval($time[1]))*60);
-            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();

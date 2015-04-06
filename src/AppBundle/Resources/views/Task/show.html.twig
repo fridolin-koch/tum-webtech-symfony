@@ -35,7 +35,7 @@
                         <dt>Due date</dt>
                         <dd>{{ entity.dueDate is null ? '-' : entity.dueDate|date('Y-m-d') }}</dd>
                         <dt>Time estimate</dt>
-                        <dd>{{ entity.timeEstimated is null ? '-' : entity.timeEstimated }}</dd>
+                        <dd>{{ entity.timeEstimated is null ? '-' : entity.timeEstimated|format_seconds }}</dd>
                     </dl>
                 </div>
             </div>

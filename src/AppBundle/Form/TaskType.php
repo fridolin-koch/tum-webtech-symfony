@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\DataTransformer\TimeEstimateTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -25,16 +26,17 @@ class TaskType extends AbstractType
             ])
             ->add('dueDate', 'date', [
                 'required' => false
-            ])
-            ->add('timeEstimated', 'text', [
-                'required' => false,
-                'constraints' => [
-                    new Regex([
-                        'pattern' => '/\d+h\d+$/',
-                        'message' => 'Format: {hours}h{minutes}, example: 2h30'
-                    ])
-                ]
-            ])
+            ]);
+        //time estimated field
+        $builder->add(
+            $builder
+                ->create('timeEstimated', 'text', [
+                    'required' => false,
+                    'label' => 'Estimated time (Format: 1h30 => 1,5h)'
+                ])
+                ->addViewTransformer(new TimeEstimateTransformer())
+        );
+        $builder
             ->add('priority')
             ->add('type')
             ->add('state')
