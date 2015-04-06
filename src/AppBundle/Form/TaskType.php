@@ -23,7 +23,9 @@ class TaskType extends AbstractType
                     'class' => 'form-description'
                 ]
             ])
-            ->add('dueDate', 'date')
+            ->add('dueDate', 'date', [
+                'required' => false
+            ])
             ->add('timeEstimated', 'text', [
                 'required' => false,
                 'constraints' => [
