@@ -1,16 +1,15 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Project edit</h1>
+{% block main -%}
+
+    <ol class="breadcrumb">
+        <li><a href="{{ path('homepage') }}">Home</a></li>
+        <li><a href="{{ path('project') }}">Projects</a></li>
+        <li class="active">Edit Project {{ entity.name }}</li>
+    </ol>
+
+    <h1><span class="fa fa-pencil"></span> Edit Project {{ entity.name }}</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('project') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

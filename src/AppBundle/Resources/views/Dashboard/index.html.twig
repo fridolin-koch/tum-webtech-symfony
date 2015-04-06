@@ -1,0 +1,7 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block main -%}
+
+{{ include('AppBundle:Task:list.html.twig', {tasks: tasks, project: null}) }}
+
+{% endblock %}

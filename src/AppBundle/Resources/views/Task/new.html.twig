@@ -1,15 +1,45 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block main -%}
-    <h1>Task creation</h1>
 
-    {{ form(form) }}
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="{{ path('project_show', {entity.project.id}) }}">{{ entity.project.name }}</a></li>
+    <li class="active">Create new Task</li>
+</ol>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<h3><span class="fa fa-plus"></span> Create new Task in Project {{ entity.project.name }}</h3>
+
+{{ form_start(form) }}
+<!-- Title -->
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.title) }}
+    </div>
+</div>
+<!-- Description -->
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.description) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <!-- State -->
+        {{ form_row(form.state) }}
+        <!-- Task priority -->
+        {{ form_row(form.priority) }}
+        <!-- Task type -->
+        {{ form_row(form.type) }}
+    </div>
+    <div class="col-md-4 col-md-offset-1">
+        <!-- Due Date -->
+        {{ form_row(form.dueDate) }}
+        <!-- Estimated time -->
+        {{ form_row(form.timeEstimated) }}
+    </div>
+</div>
+<button type="submit" class="btn btn-primary"><span class="fa fa-plus"></span> {% trans %}Create Task{% endtrans %}</button>
+{{ form_end(form) }}
 {% endblock %}

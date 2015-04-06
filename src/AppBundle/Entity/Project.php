@@ -14,16 +14,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table("projects")
  * @UniqueEntity("name")
- * @UniqueEntity("identifier")
+ * @UniqueEntity("id")
  */
 class Project
 {
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *  pattern="/^[a-z0-9-_]+$/",
+     *  message="The project identifier may only contain alphanumeric characters, dashes and underscores"
+     * )
      */
     private $id;
 
@@ -34,18 +38,6 @@ class Project
      * @Assert\NotBlank
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     * @Assert\Regex(
-     *  pattern="/^[a-z0-9-_]+$/",
-     *  message="The project identifier may only contain alphanumeric characters, dashes and underscores"
-     * )
-     */
-    private $identifier;
 
     /**
      * @var string
@@ -70,11 +62,23 @@ class Project
     private $tasks;
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -165,26 +169,6 @@ class Project
     public function removeTask(Task $task)
     {
         $this->tasks->removeElement($task);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param string $identifier
-     *
-     * @return Project
-     */
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
 
         return $this;
     }

@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\ActivityType;
 use AppBundle\Entity\TaskPriority;
 use AppBundle\Entity\TaskState;
 use AppBundle\Entity\TaskType;
@@ -24,10 +23,10 @@ class LoadDefaultData implements FixtureInterface
     {
         //define task priories
         $priorities = [
-            ['Low', '#FFF'],
-            ['Normal', '#FFF'],
-            ['High', '#FFF'],
-            ['Urgend', '#FFF'],
+            ['Low', '#467edb'],
+            ['Normal', '#000'],
+            ['High', '#fe8a8a'],
+            ['Urgend', '#f21f1f'],
         ];
         //create all priorities
         foreach ($priorities as $priority) {
@@ -41,12 +40,12 @@ class LoadDefaultData implements FixtureInterface
 
         //define task states
         $states = [
-            ['New', '#FFF'],
-            ['In Progress', '#FFF'],
-            ['Resolved', '#FFF'],
-            ['Feedback', '#FFF'],
-            ['Closed', '#FFF'],
-            ['Rejected', '#FFF'],
+            ['New', '#000'],
+            ['In Progress', '#000'],
+            ['Resolved', '#000'],
+            ['Feedback', '#000'],
+            ['Closed', '#000'],
+            ['Rejected', '#000'],
         ];
         //create all priorities
         foreach ($states as $state) {
@@ -60,30 +59,14 @@ class LoadDefaultData implements FixtureInterface
 
         //define task types
         $types = [
-            ['Bug', '#FFF'],
-            ['Feature', '#FFF'],
-            ['Task', '#FFF'],
+            ['Bug'],
+            ['Feature'],
+            ['Task'],
         ];
         //create all types
         foreach ($types as $type) {
             $obj = new TaskType();
-            $obj
-                ->setName($type[0])
-                ->setColor($type[1]);
-
-            $manager->persist($obj);
-        }
-
-        //define activity types
-        $activityTypes = [
-            'Development',
-            'Design',
-            'Support'
-        ];
-        //create all activity types
-        foreach ($activityTypes as $type) {
-            $obj = new ActivityType();
-            $obj->setName($type);
+            $obj->setName($type[0]);
 
             $manager->persist($obj);
         }

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
  */
 class Comment
 {
@@ -110,6 +111,14 @@ class Comment
         $this->text = $text;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->date = new \DateTime();
     }
 
     /**

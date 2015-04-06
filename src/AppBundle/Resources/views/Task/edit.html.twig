@@ -1,16 +1,46 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Task edit</h1>
+{% block main -%}
 
-    {{ form(edit_form) }}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="{{ path('project_show', {id: entity.project.id}) }}">{{ entity.project.name }}</a></li>
+        <li class="active">Edit Task #{{ entity.id }}</li>
+    </ol>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <h3><span class="fa fa-plus"></span> Edit Task #{{ entity.id }}</h3>
+
+    {{ form_start(edit_form) }}
+        <!-- Title -->
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(edit_form.title) }}
+            </div>
+        </div>
+        <!-- Description -->
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(edit_form.description) }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- State -->
+                {{ form_row(edit_form.state) }}
+                <!-- Task priority -->
+                {{ form_row(edit_form.priority) }}
+                <!-- Task type -->
+                {{ form_row(edit_form.type) }}
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <!-- Due Date -->
+                {{ form_row(edit_form.dueDate) }}
+                <!-- Estimated time -->
+                {{ form_row(edit_form.timeEstimated) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"><span class="fa fa-pencil"></span> {% trans %}Update Task{% endtrans %}</button>
+    {{ form_end(edit_form) }}
+
 {% endblock %}

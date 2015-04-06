@@ -1,22 +1,31 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block main -%}
+
+<ol class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">Home</a></li>
+    <li><a href="{{ path('project') }}">Projects</a></li>
+    <li class="active">{{ entity.name }}</li>
+</ol>
+
 <div class="page-header">
     <h1>{{ entity.name }} <small>{{ entity.customer }}</small></h1>
     <p>{{ entity.description }}</p>
 </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('project') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('project_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class="row">
+    <div class="col-xs-12 text-right">
+        {{ form_start(delete_form) }}
+        <div class="btn-group">
+            <a href="{{ path('task_new', {projectId: entity.id}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> {% trans %}Create new Task{% endtrans %}</a>
+            <a href="{{ path('project_edit', {id: entity.id}) }}" class="btn btn-default"><span class="fa fa-pencil"></span> {% trans %}Edit project{% endtrans %}</a>
+            <button type="submit" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete Project</button>
+        </div>
+        {{ form_end(delete_form) }}
+    </div>
+</div>
+
+{{ include('@App/Task/list.html.twig', {tasks: entity.tasks, project: entity}) }}
+
+
 {% endblock %}

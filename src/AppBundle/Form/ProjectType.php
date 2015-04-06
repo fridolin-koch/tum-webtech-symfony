@@ -19,10 +19,14 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id')
             ->add('name')
-            ->add('identifier')
-            ->add('description', null, [
-                'required' => false
+            ->add('description', 'textarea', [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Enter a description of the Task...',
+                    'class' => 'form-description'
+                ]
             ])
             ->add('customer', null, [
                 'required' => false

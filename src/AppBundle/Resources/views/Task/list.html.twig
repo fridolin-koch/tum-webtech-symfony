@@ -1,0 +1,44 @@
+<table class="table table-striped table-tasks">
+    <thead>
+        <tr>
+            {% if project is null %}
+                <th>Project</th>
+            {% endif %}
+            <th>Id</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Due date</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            {% if project is null %}
+                <td><a href="{{ path('project_show', {id: task.project.id}) }}">{{ task.project.id }}</a></td>
+            {% endif %}
+            {% set url = path('task_show', {id: task.id}) %}
+            <td><a href="{{ url }}">{{ task.id }}</a></td>
+            <td><a href="{{ url }}">{{ task.title }}</a></td>
+            <td><a href="{{ url }}">{{ task.type.name }}</a></td>
+            <td style="color: {{ task.state.color }}"><a href="{{ url }}">{{ task.state.name }}</a></td>
+            <td style="color: {{ task.priority.color }}"><a href="{{ url }}">{{ task.priority.name }}</a></td>
+            <td>{{ task.dueDate is null ? '-' : task.dueDate|date('Y-m-d') }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            {% if project is null %}
+                <td colspan="7">
+                    <div class="alert alert-info" role="alert">No Tasks were found.</div>
+                </td>
+            {% else %}
+                <td colspan="6">
+                    <div class="alert alert-info" role="alert">This projects has no task yet. <a href="{{ path('task_new', {projectId: entity.id}) }}">Create a new one</a></div>
+                </td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

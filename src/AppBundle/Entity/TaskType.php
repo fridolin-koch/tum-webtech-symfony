@@ -30,13 +30,6 @@ class TaskType
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $color;
-
-    /**
      * @return int
      */
     public function getId()
@@ -60,26 +53,6 @@ class TaskType
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getColor()
-    {
-        return $this->color;
-    }
-
-    /**
-     * @param string $color
-     *
-     * @return TaskType
-     */
-    public function setColor($color)
-    {
-        $this->color = $color;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class TaskType extends AbstractType
 {
@@ -16,13 +17,25 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description', 'textarea')
-            ->add('dueDate')
-            ->add('timeEstimated')
+            ->add('description', 'textarea', [
+                'attr' => [
+                    'placeholder' => 'Enter a description of the Task...',
+                    'class' => 'form-description'
+                ]
+            ])
+            ->add('dueDate', 'date')
+            ->add('timeEstimated', 'text', [
+                'required' => false,
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/\d+h\d+$/',
+                        'message' => 'Format: {hours}h{minutes}, example: 2h30'
+                    ])
+                ]
+            ])
             ->add('priority')
             ->add('type')
             ->add('state')
-            ->add('project')
         ;
     }
 

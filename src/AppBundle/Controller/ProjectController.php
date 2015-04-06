@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +12,10 @@ use AppBundle\Form\ProjectType;
 /**
  * Project controller.
  *
- * @Route("/")
+ * @Route("/projects")
  */
 class ProjectController extends Controller
 {
-
     /**
      * Lists all Project entities.
      *
@@ -35,6 +33,7 @@ class ProjectController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Project entity.
      *
@@ -76,7 +75,12 @@ class ProjectController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', [
+            'label' => 'Create Project',
+            'attr' => [
+                'class' => 'btn-primary'
+            ]
+        ]);
 
         return $form;
     }
@@ -102,21 +106,21 @@ class ProjectController extends Controller
     /**
      * Finds and displays a Project entity.
      *
-     * @Route("/{identifier}", name="project_show")
+     * @Route("/{id}", name="project_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($identifier)
+    public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Project')->findOneByIdentifier($identifier);
+        $entity = $em->getRepository('AppBundle:Project')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($identifier);
+        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
@@ -142,12 +146,10 @@ class ProjectController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -165,10 +167,16 @@ class ProjectController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', [
+            'label' => 'Update Project',
+            'attr' => [
+                'class' => 'btn-primary'
+            ]
+        ]);
 
         return $form;
     }
+
     /**
      * Edits an existing Project entity.
      *
@@ -185,13 +193,13 @@ class ProjectController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
+            //notify user
+            $this->addFlash('success', 'Project has been updated.');
 
             return $this->redirect($this->generateUrl('project_edit', array('id' => $id)));
         }
@@ -199,9 +207,9 @@ class ProjectController extends Controller
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Project entity.
      *
@@ -220,6 +228,8 @@ class ProjectController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Project entity.');
             }
+
+            $this->addFlash('success', 'Project has been deleted.');
 
             $em->remove($entity);
             $em->flush();
@@ -240,7 +250,6 @@ class ProjectController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('project_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

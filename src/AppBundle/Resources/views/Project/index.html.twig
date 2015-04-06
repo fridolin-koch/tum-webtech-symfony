@@ -1,14 +1,15 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block main -%}
-    <h1>Projects</h1>
-
+    <ol class="breadcrumb">
+        <li><a href="{{ path('homepage') }}">Home</a></li>
+        <li class="active">Projects</li>
+    </ol>
 
     {% for entity in entities %}
-        <h2><a href="{{ path('project_show', { 'identifier': entity.identifier }) }}">{{ entity.name }}</a></h2>
-        {{  entity.description }}
-        {{ entity.customer }}
         <hr>
+        <h3><a href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }} <small>{{ entity.customer }}</small></a></h3>
+        <p>{{ entity.description|nl2br }}</p>
     {% endfor %}
 
 {% endblock %}

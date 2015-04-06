@@ -1,15 +1,15 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block main -%}
-    <h1>Project creation</h1>
 
-    {{ form(form) }}
+<ol class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">Home</a></li>
+    <li><a href="{{ path('project') }}">Projects</a></li>
+    <li class="active">Create new</li>
+</ol>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('project') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<h1><span class="fa fa-plus"></span> Create new Project</h1>
+
+{{ form(form) }}
+
 {% endblock %}

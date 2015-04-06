@@ -28,7 +28,7 @@ class Task
      * @var TaskPriority
      *
      * @ORM\ManyToOne(targetEntity="TaskPriority")
-     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id", nullable=false)
      */
     private $priority;
 
@@ -36,7 +36,7 @@ class Task
      * @var TaskType
      *
      * @ORM\ManyToOne(targetEntity="TaskType")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     private $type;
 
@@ -44,7 +44,7 @@ class Task
      * @var TaskState
      *
      * @ORM\ManyToOne(targetEntity="TaskState")
-     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
      */
     private $state;
 
@@ -52,7 +52,7 @@ class Task
      * @var Project
      *
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
     private $project;
 
@@ -80,30 +80,23 @@ class Task
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $modifiedDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dueDate;
 
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $timeEstimated;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="task", orphanRemoval=true)
-     */
-    private $activities;
 
     /**
      * @var ArrayCollection
@@ -205,6 +198,7 @@ class Task
      */
     public function setProject($project)
     {
+        //add task to project
         $this->project = $project;
 
         return $this;
@@ -346,31 +340,6 @@ class Task
     public function setActivities($activities)
     {
         $this->activities = $activities;
-
-        return $this;
-    }
-
-    /**
-     * @param Activity $activity
-     *
-     * @return $this
-     */
-    public function addActivity(Activity $activity)
-    {
-        $activity->setTask($this);
-        $this->activities->add($activity);
-
-        return $this;
-    }
-
-    /**
-     * @param Activity $activity
-     *
-     * @return $this
-     */
-    public function removeActivity(Activity $activity)
-    {
-        $this->activities->removeElement($activity);
 
         return $this;
     }
