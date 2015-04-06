@@ -45,8 +45,7 @@ class TimeEstimateTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        /** @var \AppBundle\Entity\Task $value */
-        if ($value === null) {
+        if (empty($value)) {
             return '';
         }
         if (preg_match('/\d+h\d+$/u', $value) === 0) {
